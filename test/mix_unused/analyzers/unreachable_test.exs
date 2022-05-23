@@ -75,7 +75,7 @@ defmodule MixUnused.Analyzers.UnreachableTest do
              @subject.analyze(
                calls,
                %{function_a => %Meta{}, function_b => %Meta{}},
-               %{root_only: false}
+               %{report_transitively_used: true}
              )
   end
 
@@ -91,7 +91,7 @@ defmodule MixUnused.Analyzers.UnreachableTest do
       @subject.analyze(
         calls,
         %{function_a => %Meta{}, function_b => %Meta{}},
-        %{root_only: true}
+        %{report_transitively_used: false}
       )
 
     assert %{^function_a => _} = out
