@@ -60,7 +60,7 @@ defmodule MixUnused.Analyzers.UnreachableTest do
              })
   end
 
-  test "transitive functions are reported" do
+  test "transitive functions are reported, when root_only is false" do
     function_a = {Foo, :a, 1}
     function_b = {Foo, :b, 1}
 
@@ -75,8 +75,27 @@ defmodule MixUnused.Analyzers.UnreachableTest do
              @subject.analyze(
                calls,
                %{function_a => %Meta{}, function_b => %Meta{}},
-               %{}
+               %{root_only: false}
              )
+  end
+
+  test "root of transitive chain is reported, when root_only is true" do
+    function_a = {Foo, :a, 1}
+    function_b = {Foo, :b, 1}
+
+    calls = %{
+      Foo => [{function_b, %{caller: {:a, 1}}}]
+    }
+
+    out =
+      @subject.analyze(
+        calls,
+        %{function_a => %Meta{}, function_b => %Meta{}},
+        %{root_only: true}
+      )
+
+    assert %{^function_a => _} = out
+    assert not is_map_key(out, function_b)
   end
 
   test "functions called with default arguments are not reported" do
