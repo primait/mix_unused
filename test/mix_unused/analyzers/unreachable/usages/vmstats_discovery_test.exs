@@ -1,7 +1,4 @@
 defmodule MixUnused.Analyzers.Unreachable.Usages.VmstatsDiscoveryTest do
-  @moduledoc """
-  Test discoveries of the sink configured for the [vmstats library](https://hex.pm/packages/vmstats_ex).
-  """
   use ExUnit.Case
 
   alias MixUnused.Analyzers.Unreachable.Usages.VmstatsDiscovery

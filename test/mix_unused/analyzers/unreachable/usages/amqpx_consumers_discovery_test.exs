@@ -1,6 +1,4 @@
 defmodule MixUnused.Analyzers.Unreachable.Usages.AmqpxConsumersDiscoveryTest do
-  @moduledoc """
-  """
   use ExUnit.Case
 
   alias MixUnused.Analyzers.Unreachable.Usages.AmqpxConsumersDiscovery

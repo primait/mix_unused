@@ -1,7 +1,4 @@
 defmodule MixUnused.Analyzers.Unreachable.Usages.HttpMockPalDiscoveryTest do
-  @moduledoc """
-  Test discoveries of the mock modules configured for the [http_mock_pal library](https://hex.pm/packages/http_mock_pal).
-  """
   use ExUnit.Case
 
   alias MixUnused.Analyzers.Unreachable.Usages.HttpMockPalDiscovery

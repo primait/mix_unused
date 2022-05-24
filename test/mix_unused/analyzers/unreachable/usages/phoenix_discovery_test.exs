@@ -1,9 +1,4 @@
 defmodule MixUnused.Analyzers.Unreachable.Usages.PhoenixDiscoveryTest do
-  @moduledoc """
-  Test discoveries of functions used by the Phoenix router:
-  * controllers;
-  * plugs declared in the pipelines.
-  """
   use ExUnit.Case
 
   alias MixUnused.Analyzers.Unreachable.Usages.PhoenixDiscovery

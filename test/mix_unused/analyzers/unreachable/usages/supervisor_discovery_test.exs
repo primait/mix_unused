@@ -1,7 +1,4 @@
 defmodule MixUnused.Analyzers.Unreachable.Usages.SupervisorDiscoveryTest do
-  @moduledoc """
-  Test discoveries of GenServers started by Supervisor.
-  """
   use ExUnit.Case
 
   alias MixUnused.Analyzers.Unreachable.Usages.SupervisorDiscovery
@@ -13,7 +10,7 @@ defmodule MixUnused.Analyzers.Unreachable.Usages.SupervisorDiscoveryTest do
   test "it discovers (exported) genserver callbacks defined by supervisor children" do
     with_mock File,
       read!: fn
-        "supervisor.ex" -> ~s[
+        "supervisor.ex" -> ~s{
           defmodule MyApp.MySupervisor do
 
             alias MyApp.FooModule.AnotherGenserver
@@ -25,13 +22,13 @@ defmodule MixUnused.Analyzers.Unreachable.Usages.SupervisorDiscoveryTest do
             end
 
             def init(args) do
-              children = \[ MyApp.AGenServer, AnotherGenserver \]
+              children = [MyApp.AGenServer, AnotherGenserver]
 
-              opts = \[strategy: :one_for_one, max_restarts: 6\]
+              opts = [strategy: :one_for_one, max_restarts: 6]
               Supervisor.init(children, opts)
             end
           end
-        ]
+        }
       end do
       usages =
         SupervisorDiscovery.discover_usages(
