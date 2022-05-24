@@ -1,6 +1,6 @@
 The [MixUnused.Analyzers.Unreachable](`MixUnused.Analyzers.Unreachable`) check analyses the call graph by visiting all the functions reachable from a well-known set of functions, that act as starting points.
 
-All the remaining functions are considered unused, and by default only the functions without any caller are reported to the user.
+All the non reachable functions are considered unused. By default only the functions that have no caller are reported to the user.
 
 ## Configuration
 
