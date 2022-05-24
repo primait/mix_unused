@@ -1,6 +1,6 @@
 defmodule MixUnused.Analyzers.Unreachable.Usages.AbsintheDiscovery do
   @moduledoc """
-  Discovers some components used dynamically by the [Absinthe](http://absinthe-graphql.org/).
+  Discovers some components used dynamically by [Absinthe](http://absinthe-graphql.org/).
 
   It analyses all the modules exposing the function `__absinthe_function__` (schemas, type definitions, etc.)
   looking for the following patterns:
