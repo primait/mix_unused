@@ -38,7 +38,7 @@ In addition to the user declared functions, the analyzer uses a set of "discover
 ]
 ```
 
-A discovery module implements the [MixUnused.Analyzers.Unreachable.Usages](`MixUnused.Analyzers.Unreachable.Usages`) behaviour and it's called during the analysis to try to discover functions that should considered as used.
+A discovery module implements the [MixUnused.Analyzers.Unreachable.Usages](`MixUnused.Analyzers.Unreachable.Usages`) behaviour and it's called during the analysis to try to discover functions that should be considered as used.
 
 Some discovery modules are included by default: check them under the `MixUnused.Analyzers.Unreachable.Usages` namespace (i.e. [PhoenixDiscovery](`MixUnused.Analyzers.Unreachable.Usages.PhoenixDiscovery`)).
 
