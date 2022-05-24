@@ -2,7 +2,9 @@ defmodule MixUnused.Analyzers.Unreachable.Usages.SupervisorDiscovery do
   @moduledoc """
   Discovers the GenServers started by Supervisor.
 
-  The current implementation is quite naive: it looks at any file named _supervisor.ex_, searches all the referred modules and considers as used all the functions related with the Genserver behaviour that exists in the current application.
+  The current implementation is quite naive: it looks at any file named _supervisor.ex_,
+  searches all the referred modules and considers as used all the functions related with
+  the `GenServer` behaviour that exist in the referred modules.
 
   For instance, let's assume we have the following supervisor:
 
