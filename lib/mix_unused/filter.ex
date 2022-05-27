@@ -24,26 +24,20 @@ defmodule MixUnused.Filter do
   @spec reject_matching(exports :: Exports.t(), patterns :: [pattern()]) ::
           Exports.t()
   def reject_matching(exports, patterns) do
-    filters = normalize_filter_patterns(patterns)
-
-    Enum.reject(exports, fn {func, meta} ->
-      Enum.any?(filters, &mfa_match?(&1, func, meta))
-    end)
-    |> Map.new()
+    Map.reject(exports, matcher(patterns))
   end
 
-  @doc """
-  Get values in `exports` that match any pattern in `patterns`
-  """
   @spec filter_matching(exports :: Exports.t(), patterns :: [pattern()]) ::
           Exports.t()
   def filter_matching(exports, patterns) do
+    Map.filter(exports, matcher(patterns))
+  end
+
+  @spec matcher(patterns :: [pattern()]) :: ({mfa(), Meta.t()} -> boolean())
+  defp matcher(patterns) do
     filters = normalize_filter_patterns(patterns)
 
-    Enum.filter(exports, fn {func, meta} ->
-      Enum.any?(filters, &mfa_match?(&1, func, meta))
-    end)
-    |> Map.new()
+    fn {mfa, meta} -> Enum.any?(filters, &mfa_match?(&1, mfa, meta)) end
   end
 
   @spec normalize_filter_patterns(patterns :: [pattern()]) :: [pattern()]
