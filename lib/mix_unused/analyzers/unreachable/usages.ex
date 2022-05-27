@@ -4,8 +4,9 @@ defmodule MixUnused.Analyzers.Unreachable.Usages do
   """
 
   alias MixUnused.Analyzers.Unreachable.Config
-  alias MixUnused.Exports
   alias MixUnused.Debug
+  alias MixUnused.Exports
+  alias MixUnused.Filter
 
   @type context :: [
           exports: Exports.t()
@@ -45,12 +46,9 @@ defmodule MixUnused.Analyzers.Unreachable.Usages do
     Debug.debug(modules, &debug/1)
   end
 
-  @spec declared_usages([module() | mfa()], Exports.t()) :: [mfa()]
+  @spec declared_usages([Filter.mfa_pattern()], Exports.t()) :: [mfa()]
   defp declared_usages(hints, exports) do
-    Enum.flat_map(hints, fn
-      {m, f, a} -> [{m, f, a}]
-      m -> for {^m, f, a} <- Map.keys(exports), do: {m, f, a}
-    end)
+    Filter.filter_matching(exports, hints) |> Enum.map(fn {mfa, _} -> mfa end)
   end
 
   @spec discovered_usages([module()], Exports.t()) :: [mfa()]
