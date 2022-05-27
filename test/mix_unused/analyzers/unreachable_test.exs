@@ -29,21 +29,27 @@ defmodule MixUnused.Analyzers.UnreachableTest do
              @subject.analyze(calls, %{function => %Meta{}}, %{})
   end
 
-  test "patterns" do
+  test "testing usages defined as patterns capabilities" do
     functions = %{
       {Foo, :a, 1} => %Meta{},
       {Foo, :a, 2} => %Meta{},
       {Foo, :b, 1} => %Meta{},
       {Foo, :b, 4} => %Meta{},
       {Bar, :a, 1} => %Meta{},
-      {Bar, :d, 1} => %Meta{}
+      {Bar, :d, 1} => %Meta{},
+      {Rab, :b, 5} => %Meta{},
+      {Bob, :z, 1} => %Meta{},
+      {Bob, :z, 6} => %Meta{}
     }
 
     calls = %{Foo => [{{Foo, :a, 1}, %{caller: {:b, 1}}}]}
 
-    assert %{} ==
+    assert %{{Foo, :a, 2} => %Meta{}, {Bob, :z, 6} => %Meta{}} ==
              @subject.analyze(calls, functions, %{
-               usages: [{~r/\S/, :_, 1..5}]
+               usages: [
+                 {~r/B\S/, :_, 1..5},
+                 {:_, :b, :_}
+               ]
              })
   end
 
