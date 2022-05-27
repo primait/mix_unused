@@ -47,8 +47,8 @@ defmodule MixUnused.Analyzers.Unreachable.Usages do
   end
 
   @spec declared_usages([Filter.pattern()], Exports.t()) :: [mfa()]
-  defp declared_usages(hints, exports) do
-    Filter.filter_matching(exports, hints) |> Enum.map(fn {mfa, _} -> mfa end)
+  defp declared_usages(patterns, exports) do
+    Filter.filter_matching(exports, patterns) |> Map.keys()
   end
 
   @spec discovered_usages([module()], Exports.t()) :: [mfa()]
