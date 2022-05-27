@@ -6,7 +6,7 @@ defmodule MixUnused.Analyzers.Unreachable.Config do
   alias __MODULE__, as: Config
 
   @type t :: %Config{
-          usages: [Filter.mfa_pattern()],
+          usages: [Filter.pattern()],
           usages_discovery: [module()],
           report_transitively_unused: boolean()
         }
