@@ -1,12 +1,12 @@
 defmodule MixUnused.Analyzers.Unreachable.Usages.PhoenixDiscoveryTest do
   use ExUnit.Case
 
+  alias MixUnused.Analyzers.Unreachable.Usages.Context
   alias MixUnused.Analyzers.Unreachable.Usages.PhoenixDiscovery
   alias MixUnused.Meta
 
   import Mock
 
-  # TODO: add alias
   test "it discovers http method handlers defined in controllers" do
     with_mock File,
       read!: fn "fooweb/router.ex" -> ~s[
@@ -25,13 +25,13 @@ defmodule MixUnused.Analyzers.Unreachable.Usages.PhoenixDiscoveryTest do
         end
       ] end do
       usages =
-        PhoenixDiscovery.discover_usages(
+        PhoenixDiscovery.discover_usages(%Context{
           exports: %{
             {MyPhoenixApp.PageController, :index, 2} => %Meta{
               file: "fooweb/router.ex"
             }
           }
-        )
+        })
 
       assert {MyPhoenixApp.PageController, :index, 2} in usages
       assert {MyPhoenixApp.UsersController, :create_user, 2} in usages
@@ -67,11 +67,11 @@ defmodule MixUnused.Analyzers.Unreachable.Usages.PhoenixDiscoveryTest do
         end
       | end do
       usages =
-        PhoenixDiscovery.discover_usages(
+        PhoenixDiscovery.discover_usages(%Context{
           exports: %{
             {MyPhoenixApp.PageController, :index, 2} => %Meta{file: "router.ex"}
           }
-        )
+        })
 
       assert {MyPhoenixPlug, :init, 1} in usages
       assert {MyPhoenixPlug, :call, 2} in usages
