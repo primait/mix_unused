@@ -32,8 +32,9 @@ defmodule MixUnused.Analyzers.Unreachable.Usages.PhoenixDiscovery do
   @behaviour MixUnused.Analyzers.Unreachable.Usages
 
   @http_methods [
-    :get,
+    :delete,
     :forward,
+    :get,
     :options,
     :patch,
     :post,
@@ -59,7 +60,7 @@ defmodule MixUnused.Analyzers.Unreachable.Usages.PhoenixDiscovery do
 
   defp functions_called_by_router(ast) do
     case ast do
-      {method, _, [_path, module, f]}
+      {method, _, [_path, module, f | _]}
       when method in @http_methods and is_atom(f) ->
         [{module, f, 2}]
 

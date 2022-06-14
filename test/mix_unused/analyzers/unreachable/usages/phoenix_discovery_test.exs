@@ -20,7 +20,7 @@ defmodule MixUnused.Analyzers.Unreachable.Usages.PhoenixDiscoveryTest do
           scope "/" do
             get "/", MyPhoenixApp.PageController, :index
             post "/user", MyPhoenixApp.UsersController, :create_user
-            patch "/cart", CartController.Pippo, :update_cart
+            patch "/cart", CartController.Pippo, :update_cart, as: :cart
           end
         end
       ] end do
