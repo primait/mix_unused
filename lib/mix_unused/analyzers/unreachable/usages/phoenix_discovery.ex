@@ -32,13 +32,15 @@ defmodule MixUnused.Analyzers.Unreachable.Usages.PhoenixDiscovery do
   @behaviour MixUnused.Analyzers.Unreachable.Usages
 
   @http_methods [
+    :connect,
     :delete,
     :forward,
     :get,
+    :head,
     :options,
     :patch,
     :post,
-    :put
+    :trace
   ]
 
   @impl true
