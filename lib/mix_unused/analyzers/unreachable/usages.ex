@@ -27,17 +27,6 @@ defmodule MixUnused.Analyzers.Unreachable.Usages do
   """
   @callback discover_usages(Context.t()) :: [mfa()]
 
-  @default_discoveries [
-    MixUnused.Analyzers.Unreachable.Usages.AbsintheDiscovery,
-    MixUnused.Analyzers.Unreachable.Usages.AmqpxConsumersDiscovery,
-    MixUnused.Analyzers.Unreachable.Usages.ApplicationDiscovery,
-    MixUnused.Analyzers.Unreachable.Usages.ExqDiscovery,
-    MixUnused.Analyzers.Unreachable.Usages.HttpMockPalDiscovery,
-    MixUnused.Analyzers.Unreachable.Usages.PhoenixDiscovery,
-    MixUnused.Analyzers.Unreachable.Usages.SupervisorDiscovery,
-    MixUnused.Analyzers.Unreachable.Usages.VmstatsDiscovery
-  ]
-
   @spec usages(Config.t(), Context.t()) :: [mfa()]
   def usages(
         %Config{
@@ -49,7 +38,7 @@ defmodule MixUnused.Analyzers.Unreachable.Usages do
     modules =
       Enum.concat(
         declared_usages(usages, context),
-        discovered_usages(usages_discovery ++ @default_discoveries, context)
+        discovered_usages(usages_discovery, context)
       )
 
     Debug.debug(modules, &debug/1)
