@@ -7,7 +7,7 @@ defmodule MixUnused.Analyzers.Unused do
   def message, do: "is unused"
 
   @impl true
-  def analyze(data, possibly_uncalled) do
+  def analyze(data, possibly_uncalled, _config) do
     graph = Graph.new(type: :directed)
 
     uncalled_funcs = MapSet.new(possibly_uncalled, fn {mfa, _} -> mfa end)

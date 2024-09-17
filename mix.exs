@@ -9,7 +9,7 @@ defmodule MixUnused.MixProject do
       app: :mix_unused,
       description: "Mix compiler tracer for detecting unused public functions",
       version: @version,
-      elixir: "~> 1.10",
+      elixir: "~> 1.13",
       elixirc_paths: elixirc_paths(Mix.env()),
       package: [
         licenses: ~w[MIT],
@@ -25,10 +25,12 @@ defmodule MixUnused.MixProject do
         {:ex_doc, ">= 0.0.0", only: :dev, runtime: false},
         {:dialyxir, "~> 1.0", only: :dev, runtime: false},
         {:stream_data, ">= 0.0.0", only: [:test, :dev]},
-        {:covertool, "~> 2.0", only: :test}
+        {:covertool, "~> 2.0", only: :test},
+        {:mock, "~> 0.3.7", only: :test}
       ],
       docs: [
         extras: [
+          "README.md": [title: "Overview"],
           "CHANGELOG.md": [],
           LICENSE: [title: "License"]
         ],
