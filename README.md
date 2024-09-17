@@ -76,7 +76,7 @@ def project do
       # don't do this:
       clean: "deps.unlock --unused",
 
-      # do this:
+      # do this:
       clean: ["clean", "deps.unlock --unused"],
     ],
     # ⋯
@@ -107,7 +107,7 @@ def project do
     # ⋯
     unused: [
       checks: [
-        # find public functions that could be private
+        # find public functions that could be private
         MixUnused.Analyzers.Private,
         # find unused public functions
         MixUnused.Analyzers.Unused,
@@ -127,8 +127,6 @@ end
 It supports the following options:
 
 - `checks`: list of analyzer modules to use.
-  In alternative to the default set, you can use the [MixUnused.Analyzers.Unreachable](`MixUnused.Analyzers.Unreachable`) 
-  check (see the specific [guide](guides/unreachable-analyzer.md)).
 
 - `ignore`: list of ignored functions, example:
 
