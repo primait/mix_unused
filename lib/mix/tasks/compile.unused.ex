@@ -133,7 +133,7 @@ defmodule Mix.Tasks.Compile.Unused do
 
     all_functions =
       app
-      |> Exports.application()
+      |> Exports.application(config)
       |> Filter.reject_matching(config.ignore)
 
     error_on_messages =

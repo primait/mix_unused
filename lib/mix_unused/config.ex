@@ -7,7 +7,8 @@ defmodule MixUnused.Config do
           limit: integer() | nil,
           paths: [String.t()] | nil,
           severity: :hint | :information | :warning | :error,
-          warnings_as_errors: boolean()
+          warnings_as_errors: boolean(),
+          fetcher: module()
         }
 
   defstruct checks: [
@@ -19,7 +20,8 @@ defmodule MixUnused.Config do
             limit: nil,
             paths: nil,
             severity: :hint,
-            warnings_as_errors: false
+            warnings_as_errors: false,
+            fetcher: MixUnused.Exports.Fetcher
 
   @options [
     limit: :integer,

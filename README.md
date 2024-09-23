@@ -150,6 +150,59 @@ It supports the following options:
 - `severity`: severity of the reported messages.
   Allowed levels are `:hint`, `:information`, `:warning`, and `:error`.
 
+- `fetcher`: module to detect the functions exported by the application.
+  By default, it uses `MixUnused.Exporters.Fetcher`. 
+  Could be useful while implementing custom analyzers.
+
+## Extended usage
+
+In order to extend the usage of the tool, you can define a custom `Fetcher` module inside 
+configuration. Doing so you can define custom rules for detecting exported functions.
+
+```elixir
+defmodule MyFetcher do
+  @behaviour MixUnused.Exporters.Fetcher
+
+  @impl MixUnused.Exporters.Fetcher
+  def fetch(module) do
+    # return the list of exported functions
+  end
+end
+```
+
+Then you can use it in the configuration:
+
+```elixir
+
+def project do
+  [
+    # ⋯
+    unused: [
+      # ⋯
+      fetcher: MyFetcher
+      # ⋯
+    ],
+    # ⋯
+  ]
+end
+```
+
+The idea, in the new `Fetcher`, is to maintain current fetcher behaviour, 
+enriching `Meta` struct with `extra` information. For example:
+
+```elixir
+  # From lib/mix_unused/exports/fetcher.ex at line 33
+  %Meta{
+    signature: sig,
+    file: source,
+    line: line,
+    doc_meta: meta,
+    extra: %{my_extra_field_1: "value1", my_extra_field_2: "value2"} # Custom values here
+  }
+```
+
+These values will be available in the analyzers, so you can use them to implement custom rules.
+
 ## Copyright and License
 
 Copyright © 2021 by Łukasz Niemier
