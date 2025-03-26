@@ -12,16 +12,14 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        otp_version: ['24.0', '23.3', '22.3']
+        otp_version: ['25.3', '26.2', '27.3']
         elixir_version: ['1.10.3', '1.11.4', '1.12.1']
-        exclude:
-          - otp_version: '24.0'
-            elixir_version: '1.10.3'
     steps:
     - uses: actions/checkout@v2
     - name: Set up Elixir
       uses: erlef/setup-beam@5304e04ea2b355f03681464e683d92e3b2f18451 # ratchet:erlef/setup-beam@v1
       with:
+        version-type: strict
         otp-version: ${{ matrix.otp_version }}
         elixir-version: ${{ matrix.elixir_version }}
     - name: Restore dependencies cache
