@@ -13,7 +13,12 @@ jobs:
     strategy:
       matrix:
         otp_version: ['25.3', '26.2', '27.3']
-        elixir_version: ['1.10.3', '1.11.4', '1.12.1']
+        elixir_version: ['1.15.8', '1.16.3', '1.17.3']
+        exclude:
+          - otp_version: '27.3'
+            elixir_version: '1.15.8'
+          - otp_version: '27.3'
+            elixir_version: '1.16.3'
     steps:
     - uses: actions/checkout@v2
     - name: Set up Elixir
