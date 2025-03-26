@@ -12,20 +12,23 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        otp_version: ['24.0', '23.3', '22.3']
-        elixir_version: ['1.10.3', '1.11.4', '1.12.1']
+        otp_version: ['25.3', '26.2', '27.3']
+        elixir_version: ['1.15.8', '1.16.3', '1.17.3']
         exclude:
-          - otp_version: '24.0'
-            elixir_version: '1.10.3'
+          - otp_version: '27.3'
+            elixir_version: '1.15.8'
+          - otp_version: '27.3'
+            elixir_version: '1.16.3'
     steps:
     - uses: actions/checkout@v2
     - name: Set up Elixir
-      uses: erlef/setup-beam@v1
+      uses: erlef/setup-beam@5304e04ea2b355f03681464e683d92e3b2f18451 # ratchet:erlef/setup-beam@v1
       with:
+        version-type: strict
         otp-version: ${{ matrix.otp_version }}
         elixir-version: ${{ matrix.elixir_version }}
     - name: Restore dependencies cache
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       with:
         path: deps
         key: ${{ runner.os }}-otp-${{ matrix.otp_version }}-mix-${{ hashFiles('**/mix.lock') }}
@@ -34,7 +37,7 @@ jobs:
       run: mix do deps.get, deps.compile
     - name: Run tests
       run: mix test --cover
-    - uses: codecov/codecov-action@v2
+    - uses: codecov/codecov-action@f32b3a3741e1053eb607407145bc9619351dc93b # ratchet:codecov/codecov-action@v2
       with:
         files: ./coverage.xml
         flags: elixir-${{ matrix.elixir_version }},otp-${{ matrix.otp_version }}
