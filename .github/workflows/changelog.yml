@@ -13,7 +13,7 @@ jobs:
       with:
         fetch-depth: 0
         ref: master
-    - uses: Bpazy/setup-git-chglog@v1
+    - uses: Bpazy/setup-git-chglog@51bb488b4d96f4db1c1c611d133a30c28f479f33 # v1
     - name: git-chglog version
       run: git chglog --version
     - name: Generate changelog
