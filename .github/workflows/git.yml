@@ -9,12 +9,12 @@ jobs:
     name: Check commit messages
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
       with:
         fetch-depth: 0
         ref: ${{ github.event.pull_request.head.sha }}
     - name: Get PR URL
-      uses: Dovyski/payload-info-action@master
+      uses: Dovyski/payload-info-action@c06c88b31fc2cd874ef053017f83315696dd7928
       id: issue_url
       with:
         filter_pull_request: '.pull_request._links.issue.href'
@@ -43,7 +43,7 @@ jobs:
     name: Label PRs depending on changes
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
       with:
         fetch-depth: 0
         ref: ${{ github.event.pull_request.head.sha }}
