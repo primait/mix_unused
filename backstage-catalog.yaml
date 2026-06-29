@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: "mix_unused"
+  description: "Mix compiler tracer for detecting unused public functions"
+spec:
+  type: "library"
+  lifecycle: production
+  owner: "group:default/team-developer-experience"
+  system: prima.it
